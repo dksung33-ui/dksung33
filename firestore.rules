@@ -1,0 +1,24 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // 🏆 명예의 전당 (Hall of Fame) 랭킹 데이터
+    match /hall_of_fame/{documentId} {
+      // 누구나 랭킹 목록을 읽을 수 있음
+      allow read: if true;
+      
+      // 로그인(익명 로그인 포함)한 사용자가 본인의 userId로만 작성 가능
+      allow create: if request.auth != null 
+                    && request.resource.data.userId == request.auth.uid;
+      
+      // 이미 생성된 타인의 랭킹 기록은 수정/삭제 불가 (데이터 변조 방지)
+      allow update, delete: if false;
+    }
+    
+    // 👤 사용자별 데이터 (개인 프로필, 저장 데이터 안전 분리)
+    match /users/{userId} {
+      // 본인의 UID 문서에만 접근 및 수정 가능 (사용자 간 데이터 완전 분리)
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}

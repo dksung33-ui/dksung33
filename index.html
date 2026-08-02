@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>텐 메이커 (Make 10) - 10 만들기 연산 게임</title>
+  <meta name="description" content="10을 만드는 3가지 미니게임과 100 Gold 보스전! 10보수 수학 연산을 재미있게 학습하는 교수 학습 웹앱">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Floating background bubbles -->
+  <div class="bg-bubbles">
+    <div class="bg-bubble" style="width:80px; height:80px; left:10%; animation-duration:12s;"></div>
+    <div class="bg-bubble" style="width:120px; height:120px; left:30%; animation-duration:16s; animation-delay:2s;"></div>
+    <div class="bg-bubble" style="width:60px; height:60px; left:70%; animation-duration:10s; animation-delay:4s;"></div>
+    <div class="bg-bubble" style="width:100px; height:100px; left:85%; animation-duration:14s; animation-delay:1s;"></div>
+  </div>
+
+  <div id="app">
+    <!-- Header / Dashboard HUD -->
+    <header>
+      <div class="logo-area" id="logo-home">
+        <span class="logo-icon">🌟</span>
+        <h1 class="logo-title">TEN MAKER</h1>
+      </div>
+
+      <div class="user-stats">
+        <div class="stat-badge gold" title="미니게임에서 골드를 모으세요!">
+          <span class="icon">🪙</span>
+          <span id="user-gold-count">50</span> Gold
+        </div>
+        <div class="stat-badge" title="미니게임 클리어 총 횟수">
+          <span class="icon">🎮</span>
+          <span id="user-clears-count">0</span>회
+        </div>
+
+        <div class="user-profile">
+          <img id="user-avatar-img" src="https://api.dicebear.com/7.x/bottts/svg?seed=guest" alt="Avatar" class="avatar">
+          <span id="user-display-name" style="font-weight:bold;">익명 용사</span>
+        </div>
+
+        <button class="auth-btn" id="btn-auth">
+          <span>🔑</span> 로그인 / 계정
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="nav-tab active" data-view="dashboard">🎮 게임 선택</button>
+      <button class="nav-tab" data-view="leaderboard">🏆 명예의 전당</button>
+    </nav>
+
+    <!-- VIEW 1: Dashboard (Mini Games Selection + Boss Banner) -->
+    <main class="view-panel active" id="view-dashboard">
+      <div class="section-header">
+        <h2>10 만들기 미니게임</h2>
+        <p>20~30초 제한시간 안에 10이 되는 숫자를 맞춰 골드를 모으세요!</p>
+      </div>
+
+      <div class="game-cards-grid">
+        <!-- Game 1 -->
+        <div class="game-card game1">
+          <div class="icon-wrapper">🧼</div>
+          <h3>10 보수 버블 팝</h3>
+          <p>제시된 수와 합해서 10이 되는 숫자의 버블을 빠르게 터뜨리세요! (25초)</p>
+          <button class="btn-play" id="btn-play-game1">게임 시작 ➔</button>
+        </div>
+
+        <!-- Game 2 -->
+        <div class="game-card game2">
+          <div class="icon-wrapper">🃏</div>
+          <h3>10 스피드 카드</h3>
+          <p>화면의 카드 중 합이 10이 되는 카드 2장을 짝지어 지우세요! (30초)</p>
+          <button class="btn-play" id="btn-play-game2">게임 시작 ➔</button>
+        </div>
+
+        <!-- Game 3 -->
+        <div class="game-card game3">
+          <div class="icon-wrapper">👾</div>
+          <h3>10 드롭 포토리스</h3>
+          <p>위에서 떨어지는 수에 맞춰 10이 되는 숫자를 발사해 터뜨리세요! (30초)</p>
+          <button class="btn-play" id="btn-play-game3">게임 시작 ➔</button>
+        </div>
+      </div>
+
+      <!-- Boss Banner -->
+      <div class="boss-banner">
+        <div class="boss-banner-content">
+          <h3>👹 10보수 대마왕 보스 던전</h3>
+          <p>10을 만드는 문제 10개를 연속해서 풀고 명예의 전당에 이름을 올리세요!</p>
+          <div class="boss-cost-tag">
+            <span>🪙</span> 도전 비용: <strong>100 Gold</strong> 필요 (현재 골드로 도전!)
+          </div>
+        </div>
+        <button class="btn-boss-challenge" id="btn-start-boss">보스에게 도전하기 ⚔️</button>
+      </div>
+    </main>
+
+    <!-- VIEW 2: Game Playing Arena -->
+    <section class="view-panel" id="view-game-arena">
+      <div class="game-arena" id="arena-content">
+        <!-- Dynamic Game Content Injected via app.js -->
+      </div>
+    </section>
+
+    <!-- VIEW 3: Hall of Fame Leaderboard -->
+    <section class="view-panel" id="view-leaderboard">
+      <div class="section-header">
+        <h2>🏆 명예의 전당 (Hall of Fame)</h2>
+        <p>10 문제를 맞춘 순위가 최우선으로 반영되며, 시간이 짧을수록 상위 랭크됩니다!</p>
+      </div>
+      <div class="hof-container" id="hof-list-container">
+        <!-- Dynamic Table Injected via app.js -->
+      </div>
+    </section>
+  </div>
+
+  <!-- Modal: Auth & Account -->
+  <div class="modal-overlay" id="modal-auth">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="btn-close-modal">✖</button>
+      <h3>🔑 계정 로그인</h3>
+      <p style="color:#64748b; margin-bottom:20px;">Google 로그인으로 내 기록을 클라우드에 영구 보존하거나, 게스트로 플레이하세요!</p>
+      
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <button class="auth-btn" style="background:#4285F4; justify-content:center; padding:14px; font-size:1.1rem;" id="btn-login-google">
+          <span>🌐</span> Google 계정으로 로그인
+        </button>
+        <button class="auth-btn" style="background:#64748b; justify-content:center; padding:14px; font-size:1.1rem;" id="btn-login-guest">
+          <span>👤</span> 게스트(익명) 플레이
+        </button>
+        <button class="auth-btn" style="background:#ef4444; justify-content:center; padding:12px; display:none;" id="btn-logout">
+          <span>🚪</span> 로그아웃
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Confetti Layer -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Modular Scripts -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>

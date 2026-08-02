@@ -595,11 +595,13 @@ async function finishBossChallenge() {
   showToast("🎉 보스전 도전 완료! 명예의 전당으로 이동합니다...", "success");
   await saveBossRecord(record);
 
-    </div>
-  `;
+  // Store last run result for top highlighting
+  state.lastBossResult = record;
 
-  document.getElementById('btn-view-hof').addEventListener('click', () => switchView('leaderboard'));
-  document.getElementById('btn-boss-home').addEventListener('click', () => switchView('dashboard'));
+  // Immediately switch to Hall of Fame view so user can check rankings right away
+  setTimeout(() => {
+    switchView('leaderboard');
+  }, 1200);
 }
 
 /* ==========================================================================

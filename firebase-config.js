@@ -22,14 +22,14 @@ import {
   serverTimestamp 
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// Safely load Firebase Config from window variables, process.env, or fallback
+// User's Firebase Project Configuration
 const firebaseConfig = window.ENV_FIREBASE_CONFIG || {
-  apiKey: typeof process !== 'undefined' && process.env?.VITE_FIREBASE_API_KEY || "YOUR_FIREBASE_API_KEY",
-  authDomain: typeof process !== 'undefined' && process.env?.VITE_FIREBASE_AUTH_DOMAIN || "ten-maker-app.firebaseapp.com",
-  projectId: typeof process !== 'undefined' && process.env?.VITE_FIREBASE_PROJECT_ID || "ten-maker-app",
-  storageBucket: typeof process !== 'undefined' && process.env?.VITE_FIREBASE_STORAGE_BUCKET || "ten-maker-app.appspot.com",
-  messagingSenderId: typeof process !== 'undefined' && process.env?.VITE_FIREBASE_MESSAGING_SENDER_ID || "1234567890",
-  appId: typeof process !== 'undefined' && process.env?.VITE_FIREBASE_APP_ID || "1:1234567890:web:abcdef123456"
+  apiKey: (typeof process !== 'undefined' && process.env?.VITE_FIREBASE_API_KEY) || "AIzaSyAjDs05mNWcbtWIB-61IulRj4LfgUnPbl0",
+  authDomain: (typeof process !== 'undefined' && process.env?.VITE_FIREBASE_AUTH_DOMAIN) || "dksung33-50b91.firebaseapp.com",
+  projectId: (typeof process !== 'undefined' && process.env?.VITE_FIREBASE_PROJECT_ID) || "dksung33-50b91",
+  storageBucket: (typeof process !== 'undefined' && process.env?.VITE_FIREBASE_STORAGE_BUCKET) || "dksung33-50b91.firebasestorage.app",
+  messagingSenderId: (typeof process !== 'undefined' && process.env?.VITE_FIREBASE_MESSAGING_SENDER_ID) || "147101046588",
+  appId: (typeof process !== 'undefined' && process.env?.VITE_FIREBASE_APP_ID) || "1:147101046588:web:f4abdcc227441bbe8f3039"
 };
 
 let app = null;
